@@ -43,9 +43,25 @@ def html_css_image(tag):
 
     return 'url("%s")' % src
 
+def html_css_image2(tag):
+    if len(tmp) > 0:
+        path = tmp[0]
+    else:
+        path = base
+
+    src = tag.group(1)
+    if not "://" in src:
+        src = img_compile(path + src)
+
+    if src is None:
+        src = tag.group(1)
+
+    return 'url(%s)' % src
+
 def html_process_css(data, path):
     tmp.append(path)
     result = re.sub(r'url\("([^"\?\#]+)"\)', html_css_image, data)
+    result = re.sub(r'url\(([^"\?\#\)]+)\)', html_css_image2, data)
     del tmp[:]
     return result
 
