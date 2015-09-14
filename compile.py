@@ -35,26 +35,24 @@ def html_css_image(tag):
         path = base
 
     src = tag.group(1)
-    print "Substing: " + src
     if not "://" in src:
         src = img_compile(path + src)
 
     if src is None:
-        print "Default"
         src = tag.group(1)
 
     return 'url("%s")' % src
 
 def html_process_css(data, path):
     tmp.append(path)
-    result = re.sub(r'url\("([^"]+)"\)', html_css_image, data)
+    result = re.sub(r'url\("([^"\?\#]+)"\)', html_css_image, data)
     del tmp[:]
     return result
 
 
 def html_embed_css(tag):
     # Obtain the filename
-    p = re.compile('href="([^"\?]+)"')
+    p = re.compile('href="([^"]+)"')
     m = p.search(tag)
     if m and not "://" in m.group(1):
         content = readfile(base + m.group(1))
@@ -105,6 +103,8 @@ def html_translate(m):
         tag = html_embed_css(tag)
     elif tag[1:7] == "script":
         tag = html_embed_script(tag)
+    #else:
+        #print 'Ignoring "%s"' % tag
     return tag
 
 def html_compile(filename):
@@ -114,7 +114,7 @@ def html_compile(filename):
 
 
 if len(sys.argv) is not 3:
-    print "Usage: compile.py <input html> <output html>"
+    print "Usage: %s <input html> <output html>" % os.path.basename(sys.argv[0])
     sys.exit(1)
 
 infile = sys.argv[1]
