@@ -54,7 +54,7 @@ def html_process_css(data, path):
 
 def html_embed_css(tag):
     # Obtain the filename
-    p = re.compile('href="([^["\?]]+)"')
+    p = re.compile('href="([^"\?]+)"')
     m = p.search(tag)
     if m and not "://" in m.group(1):
         content = readfile(base + m.group(1))
