@@ -6,4 +6,4 @@ Yes, unlike any other tool, this will take all the content needed to display a w
 It will inline the following content:
 - Javascript
 - CSS
-- Images (<img/> and css)
+- Images (&lt;img/&gt; and css)
