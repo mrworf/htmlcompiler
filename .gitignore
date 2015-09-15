@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# test-suite.sh generates this
+test-suite/
